@@ -1,0 +1,16 @@
+# Node / Next
+ray-site/.next
+ray-site/node_modules
+ray-site/.turbo
+
+# Logs
+*.log
+ray-site/npm-debug.log*
+ray-site/yarn-debug.log*
+ray-site/yarn-error.log*
+
+# Editor
+.cursor
+.vscode
+.idea
+
