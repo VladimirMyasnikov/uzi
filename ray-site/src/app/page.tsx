@@ -1,105 +1,14 @@
 import { siteConfig } from "@/config/site";
-
-const services = [
-  {
-    title: "Ремонт и обслуживание УЗИ-сканеров",
-    desc: "Диагностика, ремонт, калибровка, запчасти и гарантия сервиса.",
-  },
-  {
-    title: "Ремонт и восстановление датчиков",
-    desc: "Шлейфы, пьезоэлементы, разъемы, герметизация и тестирование.",
-  },
-];
-
-const catalog = [
-  {
-    title: "Медицинские УЗИ сканеры",
-    note: "Стационарные и портативные решения",
-  },
-  {
-    title: "Ветеринарные УЗИ сканеры",
-    note: "Портативные для агропрома и ветклиник",
-  },
-  {
-    title: "Датчики УЗИ",
-    note: "Совместимость с популярными брендами",
-  },
-  {
-    title: "Биопсийные насадки",
-    note: "Аксессуары и расходные материалы",
-  },
-  {
-    title: "Специальные предложения",
-    note: "Со склада и по акционным ценам",
-  },
-];
-
-const specials = [
-  { title: "Портативный GE Vivid i", badge: "Спецпредложение" },
-  { title: "УЗИ Toshiba Aplio MX со склада", badge: "Со склада" },
-];
-
-const news = [
-  {
-    title: "Кто изобрел ультразвуковые исследования? История ультразвука.",
-    date: "27 августа 2024",
-  },
-  {
-    title: "Будущее сонографии: Искусственный интеллект",
-    date: "20 августа 2024",
-  },
-];
-
-const faq = [
-  {
-    q: "Чем отличается ветеринарный и медицинский сканер?",
-    a: "Различаются предустановками, частотами датчиков и софтом под задачи.",
-  },
-  {
-    q: "Могут ли датчики работать с разными брендами?",
-    a: "Есть совместимые модели и переходники — проверяем по серийному номеру.",
-  },
-  {
-    q: "Что такое трансдьюсер и как он работает?",
-    a: "Это датчик, преобразующий электрические импульсы в ультразвук и обратно.",
-  },
-];
+import {
+  categories as catalog,
+  servicesList as services,
+  specialsList as specials,
+  newsList as news,
+  faqList as faq,
+} from "@/config/data";
 
 export default function Home() {
   return (
-    <div className="bg-gradient-to-b from-slate-50 to-white text-slate-900">
-      <header className="border-b border-slate-200 bg-white/70 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="font-semibold text-lg">{siteConfig.name}</div>
-          <div className="hidden gap-6 text-sm font-medium md:flex">
-            <a href="#services" className="hover:text-slate-600">
-              Услуги
-            </a>
-            <a href="#catalog" className="hover:text-slate-600">
-              Оборудование
-            </a>
-            <a href="#specials" className="hover:text-slate-600">
-              Акции
-            </a>
-            <a href="#news" className="hover:text-slate-600">
-              Новости
-            </a>
-            <a href="#contacts" className="hover:text-slate-600">
-              Контакты
-            </a>
-          </div>
-          <div className="flex items-center gap-3 text-sm font-semibold">
-            <span className="text-slate-500">{siteConfig.contacts.phoneMain}</span>
-            <a
-              href={`tel:${siteConfig.contacts.phoneTollFreeHref}`}
-              className="rounded-full bg-slate-900 px-4 py-2 text-white hover:bg-slate-800"
-            >
-              {siteConfig.contacts.phoneTollFree}
-            </a>
-          </div>
-        </div>
-      </header>
-
       <main className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-16">
         <section className="grid gap-10 lg:grid-cols-2">
           <div className="space-y-6">
@@ -343,23 +252,5 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <footer className="border-t border-slate-200 bg-white/70 py-6 text-sm text-slate-600">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>© 2025 Ray Systems. Все права защищены.</div>
-          <div className="flex gap-4">
-            <a href="#services" className="hover:text-slate-800">
-              Услуги
-            </a>
-            <a href="#catalog" className="hover:text-slate-800">
-              Каталог
-            </a>
-            <a href="#contacts" className="hover:text-slate-800">
-              Контакты
-            </a>
-          </div>
-        </div>
-      </footer>
-    </div>
   );
 }
