@@ -2,6 +2,7 @@
 ray-site/.next
 ray-site/node_modules
 ray-site/.turbo
+node_modules
 
 # Logs
 *.log

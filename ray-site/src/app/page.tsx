@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import {
   categories as catalog,
@@ -9,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-      <main className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-16">
+      <div className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-16">
         <section className="grid gap-10 lg:grid-cols-2">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
@@ -82,15 +83,16 @@ export default function Home() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {services.map((item) => (
-              <div
+              <Link
                 key={item.title}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                href={item.slug ? `/services/${item.slug}` : "/services/repair-scanners"}
+                className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <h3 className="text-lg font-semibold text-slate-900">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm text-slate-600">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -104,18 +106,19 @@ export default function Home() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {catalog.map((item) => (
-              <div
+              <Link
                 key={item.title}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                href={item.slug ? `/catalog/${item.slug}` : "/catalog"}
+                className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="text-lg font-semibold text-slate-900">
                   {item.title}
                 </div>
                 <div className="mt-2 text-sm text-slate-600">{item.note}</div>
-                <button className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
+                <div className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
                   Подробнее →
-                </button>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -131,9 +134,10 @@ export default function Home() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {specials.map((item) => (
-              <div
+              <Link
                 key={item.title}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                href="/specials"
+                className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <span className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
                   {item.badge}
@@ -141,10 +145,10 @@ export default function Home() {
                 <div className="mt-3 text-lg font-semibold text-slate-900">
                   {item.title}
                 </div>
-                <button className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
+                <div className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
                   Подробнее →
-                </button>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -158,9 +162,10 @@ export default function Home() {
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {news.map((item) => (
-              <article
+              <Link
                 key={item.title}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                href="/news"
+                className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="text-xs uppercase tracking-wide text-slate-500">
                   {item.date}
@@ -168,10 +173,10 @@ export default function Home() {
                 <h3 className="mt-2 text-lg font-semibold text-slate-900">
                   {item.title}
                 </h3>
-                <button className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
+                <div className="mt-4 text-sm font-semibold text-slate-900 hover:text-slate-700">
                   Читать →
-                </button>
-              </article>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -251,6 +256,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
   );
 }

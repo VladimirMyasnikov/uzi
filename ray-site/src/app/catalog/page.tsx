@@ -3,13 +3,13 @@ import { categories } from "@/config/data";
 
 export default function CatalogPage() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="mx-auto max-w-6xl px-6 py-16 space-y-10">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Каталог</p>
-          <h1 className="text-3xl font-semibold text-slate-900 mt-2">Оборудование и аксессуары</h1>
-          <p className="text-slate-600 mt-3">
-            Медицинские и ветеринарные УЗИ сканеры, датчики и биопсийные насадки. Примеры и тексты опираются на контент референса ray-systems.ru, позже подменим на свой.
+          <h1 className="mt-2 text-3xl font-semibold text-slate-900">Оборудование и аксессуары</h1>
+          <p className="mt-3 text-slate-600">
+            Структура каталога на основе референса ray-systems.ru — датчики, сканеры, насадки, запасные части и спецпредложения.
           </p>
         </div>
         <Link
@@ -20,21 +20,39 @@ export default function CatalogPage() {
         </Link>
       </div>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2">
         {categories.map((item) => (
-          <Link
+          <div
             key={item.slug}
-            href={`/catalog/${item.slug}`}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
           >
-            <div className="text-lg font-semibold text-slate-900">{item.title}</div>
-            <div className="mt-2 text-sm text-slate-600">{item.note}</div>
-            <div className="mt-4 text-sm font-semibold text-slate-900">Смотреть →</div>
-          </Link>
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <div className="text-lg font-semibold text-slate-900">{item.title}</div>
+                <div className="mt-1 text-sm text-slate-600">{item.note}</div>
+              </div>
+              <Link
+                href={`/catalog/${item.slug}`}
+                className="text-sm font-semibold text-slate-900 hover:text-slate-700"
+              >
+                Смотреть →
+              </Link>
+            </div>
+            {item.subcategories && (
+              <div className="mt-4 space-y-1 text-sm text-slate-600">
+                {item.subcategories.map((sub) => (
+                  <div key={sub} className="flex items-start gap-2">
+                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
+                    <span>{sub}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </div>
 
-      <div className="mt-12 rounded-3xl border border-slate-200 bg-slate-900 px-6 py-8 text-white shadow-sm">
+      <div className="rounded-3xl border border-slate-200 bg-slate-900 px-6 py-8 text-white shadow-sm">
         <div className="grid gap-6 md:grid-cols-2 md:items-center">
           <div>
             <h2 className="text-2xl font-semibold">Не нашли нужную модель?</h2>
