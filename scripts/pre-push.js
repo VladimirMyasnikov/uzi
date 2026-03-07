@@ -54,8 +54,17 @@ run("npm run lint", { cwd: ECHO_SITE });
 console.log("4/5 TypeScript (typecheck)...");
 run("npm run typecheck", { cwd: ECHO_SITE });
 
-// 5) Build
+// 5) Build (без GH_PAGES, чтобы не включался output: export и не падало на API)
 console.log("5/5 Сборка (build)...");
-run("npm run build", { cwd: ECHO_SITE });
+const buildEnv = { ...process.env, FORCE_COLOR: "1", GH_PAGES: "" };
+const rBuild = spawnSync("npm", ["run", "build"], {
+  shell: true,
+  stdio: "inherit",
+  cwd: ECHO_SITE,
+  env: buildEnv,
+});
+if (rBuild.status !== 0) {
+  process.exit(rBuild.status ?? 1);
+}
 
 console.log("\n--- Pre-push: всё ок, можно пушить ---\n");
