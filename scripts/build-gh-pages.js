@@ -22,6 +22,10 @@ const DOCS = path.join(ROOT, "docs");
 const APP = path.join(ECHO_SITE, "src", "app");
 const API_BACKUP = path.join(ROOT, ".gh-pages-api-backup");
 const IMAGES_BACKUP = path.join(ROOT, ".gh-pages-images-backup");
+const ACTIONS_BACKUP = path.join(ROOT, ".gh-pages-actions-backup");
+
+const LOGIN_ACTIONS = path.join(APP, "(admin)", "admin", "login", "actions.ts");
+const DASHBOARD_ACTIONS = path.join(APP, "(admin)", "admin", "(dashboard)", "actions.ts");
 
 const IMAGE_EXT = [".jpg", ".jpeg", ".png", ".webp"];
 
@@ -50,6 +54,35 @@ function restoreApiAndImages() {
   if (fs.existsSync(IMAGES_BACKUP)) {
     fs.cpSync(IMAGES_BACKUP, imagesDir, { recursive: true });
     fs.rmSync(IMAGES_BACKUP, { recursive: true });
+  }
+}
+
+function hideServerActionsForExport() {
+  if (!fs.existsSync(ACTIONS_BACKUP)) fs.mkdirSync(ACTIONS_BACKUP, { recursive: true });
+  if (fs.existsSync(LOGIN_ACTIONS)) {
+    fs.copyFileSync(LOGIN_ACTIONS, path.join(ACTIONS_BACKUP, "login-actions.ts"));
+    fs.writeFileSync(
+      LOGIN_ACTIONS,
+      "export type LoginState = { error?: string } | null;\n" +
+        "export async function loginAction(_p: LoginState, _f: FormData): Promise<LoginState> { return null; }\n",
+      "utf8"
+    );
+  }
+  if (fs.existsSync(DASHBOARD_ACTIONS)) {
+    fs.copyFileSync(DASHBOARD_ACTIONS, path.join(ACTIONS_BACKUP, "dashboard-actions.ts"));
+    fs.writeFileSync(DASHBOARD_ACTIONS, "export async function signOutAction() {}\n", "utf8");
+  }
+}
+
+function restoreServerActions() {
+  if (fs.existsSync(path.join(ACTIONS_BACKUP, "login-actions.ts"))) {
+    fs.copyFileSync(path.join(ACTIONS_BACKUP, "login-actions.ts"), LOGIN_ACTIONS);
+  }
+  if (fs.existsSync(path.join(ACTIONS_BACKUP, "dashboard-actions.ts"))) {
+    fs.copyFileSync(path.join(ACTIONS_BACKUP, "dashboard-actions.ts"), DASHBOARD_ACTIONS);
+  }
+  if (fs.existsSync(ACTIONS_BACKUP)) {
+    fs.rmSync(ACTIONS_BACKUP, { recursive: true });
   }
 }
 
@@ -90,22 +123,35 @@ function copyCatalogImages() {
 }
 
 function runBuild() {
-  console.log("2/5 Временно скрываем app/api и app/images (не экспортируются)...");
+  console.log("2/5 Временно скрываем app/api, app/images и server actions...");
   hideApiAndImagesForExport();
+  hideServerActionsForExport();
+  const nextDir = path.join(ECHO_SITE, ".next");
+  if (fs.existsSync(nextDir)) {
+    try {
+      fs.rmSync(nextDir, { recursive: true, maxRetries: 3 });
+    } catch (e) {
+      if (process.platform === "win32") {
+        execSync(`rmdir /s /q "${nextDir.replace(/\//g, "\\")}"`, { cwd: ECHO_SITE });
+      } else {
+        throw e;
+      }
+    }
+  }
   console.log("3/5 Сборка Next.js (output: export)...");
-  const r = spawnSync(
-    "npm",
-    ["run", "build"],
-    {
+  try {
+    execSync("npm run build", {
       cwd: ECHO_SITE,
       stdio: "inherit",
       env: { ...process.env, GH_PAGES: "1", NEXT_PUBLIC_BASE_PATH: "/uzi" },
-    }
-  );
-  restoreApiAndImages();
-  if (r.status !== 0) {
-    process.exit(r.status ?? 1);
+    });
+  } catch (e) {
+    restoreServerActions();
+    restoreApiAndImages();
+    process.exit(e.status ?? 1);
   }
+  restoreServerActions();
+  restoreApiAndImages();
 }
 
 function copyOutToDocs() {
@@ -140,7 +186,7 @@ function main() {
   console.log("   git add docs/");
   console.log("   git commit -m \"chore: обновить статику для GitHub Pages\"");
   console.log("   git push");
-  console.log("\nВ репо: Settings → Pages → Source: Deploy from branch → main → /docs\n");
+  console.log("\nВ репо: Settings → Pages → Source: Deploy from branch → master → /docs\n");
 }
 
 main();
