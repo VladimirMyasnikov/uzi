@@ -22,6 +22,21 @@ npm run dev
 
 ---
 
+## Админ-панель
+
+Управление каталогом (категории, товары, изображения) доступно по адресу **http://localhost:3000/admin**.
+
+**Перед первым входом** создайте файл `echo-site/.env.local` и задайте переменные (см. `echo-site/.env.example`):
+
+- `AUTH_SECRET` — секрет для сессий (минимум 32 символа). Сгенерировать: `openssl rand -base64 32`
+- `ADMIN_PASSWORD` — пароль входа в админку (логин — любой непустой)
+
+После сохранения `.env.local` перезапустите `npm run dev` и откройте `/admin/login`.
+
+**Как пользоваться:** Каталог → выбрать категорию («Товары») → в списке видны все товары; кнопка «Редактировать» открывает карточку товара (название, описание, статус, изображения). Добавить товар: в блоке «Добавить новый товар» указать **Slug** (часть URL, латиница/цифры/дефис, например `acs-314`) и **Название** → «Добавить товар». Slug после создания не меняется; название и остальное можно править в карточке товара.
+
+---
+
 ## Требования
 
 - **Node.js 18+**. Проверка: `node -v`
@@ -47,19 +62,24 @@ echo-site/
 ├── src/
 │   ├── app/              # Страницы (App Router)
 │   │   ├── page.tsx      # Главная
-│   │   ├── catalog/       # Каталог: категории и товары
+│   │   ├── (admin)/admin/  # Админка: /admin, /admin/login, /admin/catalog
+│   │   ├── catalog/      # Каталог: категории и товары (публичный)
 │   │   ├── services/     # Ремонт сканеров, датчиков
 │   │   ├── contacts/     # Контакты
 │   │   ├── faq/          # FAQ
 │   │   ├── news/         # Новости
-│   │   ├── specials/      # Спецпредложения
-│   │   └── images/       # API раздачи картинок каталога
-│   ├── components/       # UI: header, footer, галерея, тема
-│   ├── config/           # site, data, themes
-│   └── lib/              # catalog-loader (fs + JSON)
-├── catalog-data/         # Категории/товары: папки + data.json + картинки
-├── public/               # Статика (favicon и т.д.)
-├── start-dev.bat         # Запуск для Windows
+│   │   ├── specials/     # Спецпредложения
+│   │   ├── images/       # API раздачи картинок каталога
+│   │   └── api/admin/    # API админки (каталог CRUD, изображения)
+│   ├── components/      # UI: header, footer, галерея, тема
+│   ├── config/          # site, data, themes
+│   ├── lib/             # catalog-loader, lib/admin (catalog-fs, slug, auth)
+│   └── types/           # catalog, next-auth
+├── catalog-data/        # Категории/товары: папки + data.json + картинки
+├── auth.ts              # Auth.js v5 (Credentials для админки)
+├── .env.example         # AUTH_SECRET, ADMIN_PASSWORD
+├── public/              # Статика (favicon и т.д.)
+├── start-dev.bat        # Запуск для Windows
 └── package.json
 ```
 

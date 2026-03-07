@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LayoutContent } from "@/components/layout-content";
 
 const inter = Inter({
   variable: "--font-sans-custom",
@@ -35,9 +34,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <div className="min-h-screen page-surface text-[color:var(--fg)]">
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
+            <LayoutContent>{children}</LayoutContent>
           </div>
         </ThemeProvider>
       </body>

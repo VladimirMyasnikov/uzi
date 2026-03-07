@@ -11,10 +11,13 @@ type ThemeCtx = {
 const ThemeContext = createContext<ThemeCtx | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<ThemeName>(() => {
-    if (typeof window === "undefined") return defaultTheme;
-    return (localStorage.getItem("theme") as ThemeName) || defaultTheme;
-  });
+  const [theme, setTheme] = useState<ThemeName>(defaultTheme);
+
+  useEffect(() => {
+    const stored = (localStorage.getItem("theme") as ThemeName) || defaultTheme;
+    const id = requestAnimationFrame(() => setTheme(stored));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
