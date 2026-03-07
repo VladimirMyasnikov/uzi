@@ -1,14 +1,15 @@
 # Node / Next
-ray-site/.next
-ray-site/node_modules
-ray-site/.turbo
+echo-site/.next
+echo-site/node_modules
 node_modules
+.next
+.turbo
 
 # Logs
 *.log
-ray-site/npm-debug.log*
-ray-site/yarn-debug.log*
-ray-site/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Editor
 .cursor
