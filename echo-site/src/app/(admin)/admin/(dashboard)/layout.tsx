@@ -3,14 +3,19 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { signOutAction } from "./actions";
 
+const isGhPages = process.env.GH_PAGES === "1";
+
 export default async function AdminDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-  if (!session?.user) {
-    redirect("/admin/login");
+  let session: Awaited<ReturnType<typeof auth>> = null;
+  if (!isGhPages) {
+    session = await auth();
+    if (!session?.user) {
+      redirect("/admin/login");
+    }
   }
 
   return (
@@ -40,17 +45,19 @@ export default async function AdminDashboardLayout({
           </Link>
         </nav>
         <span className="text-sm text-[color:var(--muted)]">
-          {session.user.name ?? "Админ"}
+          {session?.user?.name ?? (isGhPages ? "Статика" : "Админ")}
         </span>
-        <form action={signOutAction}>
-          <button
-            type="submit"
-            className="rounded border px-3 py-1.5 text-sm font-medium text-[color:var(--fg)] hover:bg-[color:var(--muted)]/20"
-            style={{ borderColor: "var(--border)" }}
-          >
-            Выйти
-          </button>
-        </form>
+        {!isGhPages && (
+          <form action={signOutAction}>
+            <button
+              type="submit"
+              className="rounded border px-3 py-1.5 text-sm font-medium text-[color:var(--fg)] hover:bg-[color:var(--muted)]/20"
+              style={{ borderColor: "var(--border)" }}
+            >
+              Выйти
+            </button>
+          </form>
+        )}
       </header>
       <main className="flex-1 p-6">{children}</main>
     </div>

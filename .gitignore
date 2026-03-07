@@ -11,6 +11,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# GH Pages build temp
+.gh-pages-api-backup
+.gh-pages-images-backup
+
 # Editor
 .cursor
 .vscode

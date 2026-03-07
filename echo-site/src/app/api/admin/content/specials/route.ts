@@ -1,57 +1,45 @@
 import { NextResponse } from "next/server";
-import path from "path";
-import fs from "fs/promises";
 import { requireSession } from "@/lib/admin/auth-utils";
 import { getSpecialsList, ensureContentRootForWrite } from "@/lib/content-loader";
 import type { SpecialItem } from "@/types/content";
-
-function isValidSpecialsList(body: unknown): body is SpecialItem[] {
-  if (!Array.isArray(body)) return false;
-  return body.every(
-    (x) =>
-      x &&
-      typeof x === "object" &&
-      typeof (x as SpecialItem).title === "string" &&
-      typeof (x as SpecialItem).badge === "string"
-  );
-}
+import fs from "fs/promises";
+import path from "path";
 
 export async function GET() {
   const session = await requireSession();
   if (session instanceof NextResponse) return session;
+
   try {
     const list = await getSpecialsList();
     return NextResponse.json(list);
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Failed to load specials" },
-      { status: 500 }
-    );
+    const message = e instanceof Error ? e.message : "Ошибка загрузки акций";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
 export async function PUT(request: Request) {
   const session = await requireSession();
   if (session instanceof NextResponse) return session;
+
+  let body: SpecialItem[];
   try {
-    const body = await request.json();
-    if (!isValidSpecialsList(body)) {
-      return NextResponse.json(
-        { error: "Invalid body: array of { title, badge }" },
-        { status: 400 }
-      );
-    }
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Неверное тело запроса" }, { status: 400 });
+  }
+
+  if (!Array.isArray(body) || !body.every((x) => x?.title != null && x?.badge != null)) {
+    return NextResponse.json({ error: "Ожидается массив { title, badge }" }, { status: 400 });
+  }
+
+  try {
     const root = await ensureContentRootForWrite();
-    await fs.writeFile(
-      path.join(root, "specials.json"),
-      JSON.stringify(body, null, 2),
-      "utf8"
-    );
+    const filePath = path.join(root, "specials.json");
+    await fs.writeFile(filePath, JSON.stringify(body, null, 2), "utf8");
     return NextResponse.json(body);
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Failed to save specials" },
-      { status: 500 }
-    );
+    const message = e instanceof Error ? e.message : "Ошибка сохранения";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

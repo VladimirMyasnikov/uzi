@@ -4,6 +4,11 @@ import { getProductsByCategory, getCatalogCategories } from "@/lib/catalog-loade
 
 type Params = { params: Promise<{ category: string }> };
 
+export async function generateStaticParams() {
+  const categories = await getCatalogCategories();
+  return categories.map((c) => ({ category: c.slug }));
+}
+
 export default async function CatalogCategoryPage({ params }: Params) {
   const { category: rawCategory } = await params;
   const categorySlug = decodeURIComponent(rawCategory);

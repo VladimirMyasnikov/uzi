@@ -57,14 +57,25 @@ async function readJsonSafe(filePath: string) {
 
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 
+/** Префикс для URL изображений (для GitHub Pages: /uzi). */
+function imageBase(): string {
+  return typeof process.env.NEXT_PUBLIC_BASE_PATH === "string"
+    ? process.env.NEXT_PUBLIC_BASE_PATH
+    : "";
+}
+
 async function readLocalImages(categoryDir: string, categorySlug: string, productSlug: string) {
+  const base = imageBase();
   const productDir = path.join(categoryDir, productSlug);
   try {
     const files = await fs.readdir(productDir);
     return files
       .filter((file) => IMAGE_EXTENSIONS.includes(path.extname(file).toLowerCase()))
       .sort()
-      .map((file) => `/images/${encodeURIComponent(categorySlug)}/${encodeURIComponent(productSlug)}/${encodeURIComponent(file)}`);
+      .map(
+        (file) =>
+          `${base}/images/${encodeURIComponent(categorySlug)}/${encodeURIComponent(productSlug)}/${encodeURIComponent(file)}`
+      );
   } catch {
     return [];
   }
