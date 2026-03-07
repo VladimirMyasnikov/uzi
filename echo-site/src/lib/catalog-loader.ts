@@ -24,9 +24,11 @@ let cachedCatalogRoot: string | null = null;
 export async function resolveCatalogRoot(): Promise<string> {
   if (cachedCatalogRoot) return cachedCatalogRoot;
 
+  const cwd = process.cwd();
   const candidates = [
-    path.join(process.cwd(), "catalog-data"),
-    path.join(process.cwd(), "..", "catalog-data"),
+    path.join(cwd, "catalog-data"),
+    path.join(cwd, "..", "catalog-data"),
+    path.join(cwd, "echo-site", "catalog-data"),
   ];
 
   for (const candidate of candidates) {

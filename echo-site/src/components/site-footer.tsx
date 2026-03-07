@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { SiteConfig } from "@/types/content";
 
 const footerLinks = [
   { href: "/catalog", label: "Каталог" },
@@ -7,11 +8,16 @@ const footerLinks = [
   { href: "/news", label: "Новости" },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({ siteConfig }: { siteConfig: SiteConfig }) {
   return (
     <footer className="border-t border-slate-200 bg-white/80 py-6 text-sm text-slate-600 backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>© 2010 ******. Все права защищены.</div>
+        <div>
+          © 2010 ******. Все права защищены.
+          <a href={`tel:${siteConfig.contacts.phoneTollFreeHref}`} className="ml-2 hover:text-slate-800">
+            {siteConfig.contacts.phoneTollFree}
+          </a>
+        </div>
         <div className="flex flex-wrap gap-4">
           {footerLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-slate-800">

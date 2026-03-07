@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { specialsList } from "@/config/data";
+import { getSpecialsList } from "@/lib/content-loader";
 
-export default function SpecialsPage() {
+export default async function SpecialsPage() {
+  const specialsList = await getSpecialsList();
   return (
     <div className="mx-auto max-w-6xl px-6 py-16 space-y-8">
       <div className="flex items-center justify-between">

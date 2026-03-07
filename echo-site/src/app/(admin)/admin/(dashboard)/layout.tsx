@@ -32,6 +32,12 @@ export default async function AdminDashboardLayout({
           >
             Каталог
           </Link>
+          <Link
+            href="/admin/content"
+            className="text-sm font-medium text-[color:var(--fg)] hover:underline"
+          >
+            Контент
+          </Link>
         </nav>
         <span className="text-sm text-[color:var(--muted)]">
           {session.user.name ?? "Админ"}

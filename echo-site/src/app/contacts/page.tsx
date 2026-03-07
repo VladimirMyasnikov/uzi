@@ -1,6 +1,7 @@
-import { siteConfig } from "@/config/site";
+import { getSiteConfig } from "@/lib/content-loader";
 
-export default function ContactsPage() {
+export default async function ContactsPage() {
+  const siteConfig = await getSiteConfig();
   return (
     <div className="mx-auto max-w-6xl px-6 py-16 space-y-10">
       <div className="space-y-3">

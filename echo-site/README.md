@@ -35,6 +35,8 @@ npm run dev
 
 **Как пользоваться:** Каталог → выбрать категорию («Товары») → в списке видны все товары; кнопка «Редактировать» открывает карточку товара (название, описание, статус, изображения). Добавить товар: в блоке «Добавить новый товар» указать **Slug** (часть URL, латиница/цифры/дефис, например `acs-314`) и **Название** → «Добавить товар». Slug после создания не меняется; название и остальное можно править в карточке товара.
 
+**Контент сайта:** в меню админки пункт «Контент» — редактирование контактов (телефон, email, адрес, реквизиты, название и описание сайта), списка услуг, акций и FAQ. Данные сохраняются в папке `content-data/` (файлы `site.json`, `services.json`, `specials.json`, `faq.json`). При отсутствии файлов используются значения из `src/config/site.ts` и `src/config/data.ts`.
+
 ---
 
 ## Требования
@@ -62,7 +64,7 @@ echo-site/
 ├── src/
 │   ├── app/              # Страницы (App Router)
 │   │   ├── page.tsx      # Главная
-│   │   ├── (admin)/admin/  # Админка: /admin, /admin/login, /admin/catalog
+│   │   ├── (admin)/admin/  # Админка: /admin, /admin/login, /admin/catalog, /admin/content
 │   │   ├── catalog/      # Каталог: категории и товары (публичный)
 │   │   ├── services/     # Ремонт сканеров, датчиков
 │   │   ├── contacts/     # Контакты
@@ -70,12 +72,13 @@ echo-site/
 │   │   ├── news/         # Новости
 │   │   ├── specials/     # Спецпредложения
 │   │   ├── images/       # API раздачи картинок каталога
-│   │   └── api/admin/    # API админки (каталог CRUD, изображения)
+│   │   └── api/admin/    # API админки (каталог CRUD, контент site/services/specials/faq, изображения)
 │   ├── components/      # UI: header, footer, галерея, тема
 │   ├── config/          # site, data, themes
 │   ├── lib/             # catalog-loader, lib/admin (catalog-fs, slug, auth)
 │   └── types/           # catalog, next-auth
 ├── catalog-data/        # Категории/товары: папки + data.json + картинки
+├── content-data/        # Контент сайта: site.json, services.json, specials.json, faq.json (fallback — config/)
 ├── auth.ts              # Auth.js v5 (Credentials для админки)
 ├── .env.example         # AUTH_SECRET, ADMIN_PASSWORD
 ├── public/              # Статика (favicon и т.д.)

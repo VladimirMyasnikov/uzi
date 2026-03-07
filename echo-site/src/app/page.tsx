@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { siteConfig } from "@/config/site";
-import {
-  servicesList as services,
-  specialsList as specials,
-  newsList as news,
-  faqList as faq,
-} from "@/config/data";
+import { newsList as news } from "@/config/data";
 import { getCatalogCategories } from "@/lib/catalog-loader";
+import {
+  getSiteConfig,
+  getServicesList,
+  getSpecialsList,
+  getFaqList,
+} from "@/lib/content-loader";
 
 const stats = [
   { label: "Лет в сервисе", value: "15+" },
@@ -16,7 +16,13 @@ const stats = [
 ];
 
 export default async function Home() {
-  const catalog = await getCatalogCategories();
+  const [catalog, siteConfig, services, specials, faq] = await Promise.all([
+    getCatalogCategories(),
+    getSiteConfig(),
+    getServicesList(),
+    getSpecialsList(),
+    getFaqList(),
+  ]);
   const faqPreview = faq.slice(0, 3);
 
   return (

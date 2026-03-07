@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { ThemeSwitcher } from "@/components/theme-provider";
-import { siteConfig } from "@/config/site";
+import type { SiteConfig } from "@/types/content";
 
-export function SiteHeader() {
+export function SiteHeader({ siteConfig }: { siteConfig: SiteConfig }) {
   return (
     <header
       className="sticky top-0 z-20 border-b bg-[color:var(--bg)]/85 backdrop-blur"

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { servicesList } from "@/config/data";
+import { getServicesList } from "@/lib/content-loader";
 
-export default function RepairProbesPage() {
+export default async function RepairProbesPage() {
+  const servicesList = await getServicesList();
   const service = servicesList.find((s) => s.slug === "repair-probes");
 
   if (!service) return null;

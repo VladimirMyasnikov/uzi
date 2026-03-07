@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { siteConfig } from "@/config/site";
+import { getSiteConfig } from "@/lib/content-loader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LayoutContent } from "@/components/layout-content";
 
@@ -17,16 +17,20 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+    title: config.title,
+    description: config.description,
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteConfig = await getSiteConfig();
   return (
     <html lang="ru">
       <body
@@ -34,7 +38,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <div className="min-h-screen page-surface text-[color:var(--fg)]">
-            <LayoutContent>{children}</LayoutContent>
+            <LayoutContent siteConfig={siteConfig}>{children}</LayoutContent>
           </div>
         </ThemeProvider>
       </body>

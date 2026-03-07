@@ -1,7 +1,8 @@
-import { faqList } from "@/config/data";
 import Link from "next/link";
+import { getFaqList } from "@/lib/content-loader";
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const faqList = await getFaqList();
   return (
     <div className="mx-auto max-w-6xl px-6 py-16 space-y-8">
       <div className="flex items-center justify-between">
