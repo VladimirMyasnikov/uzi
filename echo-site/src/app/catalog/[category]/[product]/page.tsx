@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { getProduct } from "@/lib/catalog-loader";
 import { ProductGallery } from "@/components/product-gallery";

@@ -101,7 +101,7 @@ async function walkProducts(): Promise<CatalogProduct[]> {
           badge: data.badge,
           status: data.status,
         });
-      } catch (e) {
+      } catch {
         // skip broken entries
         continue;
       }

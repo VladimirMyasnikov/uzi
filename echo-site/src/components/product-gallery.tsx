@@ -40,6 +40,7 @@ export function ProductGallery({ images, alt }: Props) {
   return (
     <div className="space-y-3">
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={mainSrc}
           alt={alt}
@@ -61,6 +62,7 @@ export function ProductGallery({ images, alt }: Props) {
                 idx === current ? "border-slate-900" : "border-slate-200"
               } bg-white`}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt={`${alt} превью ${idx + 1}`}

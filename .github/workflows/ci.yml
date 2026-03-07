@@ -1,0 +1,45 @@
+# При каждом push: подчистка (lint --fix), проверка (lint, typecheck, build), ревью (ESLint), проверка документации.
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: echo-site/package-lock.json
+
+      - name: Install echo-site dependencies
+        run: npm ci
+        working-directory: echo-site
+
+      - name: Lint (with auto-fix check)
+        run: npm run lint:fix
+        working-directory: echo-site
+
+      - name: Lint (verify)
+        run: npm run lint
+        working-directory: echo-site
+
+      - name: TypeScript check
+        run: npm run typecheck
+        working-directory: echo-site
+
+      - name: Build
+        run: npm run build
+        working-directory: echo-site
+
+      - name: Docs check
+        run: node scripts/docs-check.js
+        working-directory: .

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Node-скрипт с require(), не часть Next-приложения
+    "scrape-catalog.js",
   ]),
 ]);
 

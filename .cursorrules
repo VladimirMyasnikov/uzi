@@ -1,9 +1,11 @@
+# UZI — витрина УЗИ (Cursor rules)
+
 Project Overview:
-- Project Summary: Витринный сайт Next.js для каталога УЗИ-оборудования и сервисных услуг (поставка, ремонт), ориентированный на лид-формы для мед/ветеринарных клиентов.
-- Tech Stack: TypeScript, Next.js 16 (App Router) + React 19, Tailwind CSS 4, PostCSS, ESLint 9; данные в локальных JSON (`catalog-data`) через fs; стейт — React hooks.
-- Key Features: Главная с CTA и формами КП; каталог категорий/товаров с галереей и статусами; лэндинги услуг ремонта; спецпредложения/новости/FAQ/контакты; переключение тёмной/светлой темы.
-- Architecture High-Level: Монолитный Next.js App Router; страницы в `src/app`, UI в `src/components`, конфиги в `src/config`, утилиты в `src/lib`, контент в `catalog-data`.
-- Data Flow: Server components/SSR читают JSON из `catalog-data` через fs → пропсы в React-компоненты → отображение в UI; формы пока статичны без бэкенда.
+- Project Summary: Витринный сайт Next.js для каталога УЗИ-оборудования и сервисных услуг (поставка, ремонт), ориентированный на лид-формы для мед/ветеринарных клиентов. Репозиторий: github.com/VladimirMyasnikov/uzi. Основное приложение в `echo-site/`.
+- Tech Stack: TypeScript, Next.js 16 (App Router) + React 19, Tailwind CSS 4, PostCSS, ESLint 9; данные в локальных JSON (`echo-site/catalog-data`) через fs; стейт — React hooks. Скрапер: Node (axios, cheerio) в корне.
+- Key Features: Главная с CTA и формами КП; каталог категорий/товаров с галереей и статусами; лэндинги услуг ремонта; спецпредложения/новости/FAQ/контакты; переключение тёмной/светлой темы; раздача изображений каталога по `/images/[...path]`.
+- Architecture High-Level: Монолитный Next.js App Router в `echo-site/`; страницы в `src/app`, UI в `src/components`, конфиги в `src/config`, утилиты в `src/lib`, контент в `catalog-data`.
+- Data Flow: Server components/SSR читают JSON из `catalog-data` через fs → пропсы в React-компоненты → отображение в UI; формы пока статичны без бэкенда. Подробнее: README.md, AGENTS.md, .cursor/project.md.
 
 Role: Senior-разработчик, эксперт в Next.js 16 (App Router), React 19, TypeScript 5, Tailwind CSS 4, PostCSS, ESLint 9.
 
