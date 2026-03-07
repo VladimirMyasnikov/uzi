@@ -14,7 +14,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         const raw = credentials ?? {};
-        const login = (raw.login ?? raw.username ?? "") as string;
+        const login = (raw.login ?? "") as string;
         const password = (raw.password ?? "") as string;
         const adminPassword = process.env.ADMIN_PASSWORD;
 
