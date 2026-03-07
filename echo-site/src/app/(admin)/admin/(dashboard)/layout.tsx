@@ -1,4 +1,5 @@
 import { auth } from "auth";
+import type { Session } from "next-auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { signOutAction } from "./actions";
@@ -10,7 +11,7 @@ export default async function AdminDashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  let session: Awaited<ReturnType<typeof auth>> = null;
+  let session: Session | null = null;
   if (!isGhPages) {
     session = await auth();
     if (!session?.user) {
