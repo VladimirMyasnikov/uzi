@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[62059,["/uzi/_next/static/chunks/2c9a26300299d327.js"],""]
+3:I[48729,["/uzi/_next/static/chunks/9fb88f3d60fb7f92.js","/uzi/_next/static/chunks/2053e045db148126.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"IPGfQrZ_N51vns4StovT3","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"space-y-6","children":[["$","h1",null,{"className":"text-2xl font-semibold text-[color:var(--fg)]","children":"Админ-панель"}],["$","p",null,{"className":"text-[color:var(--muted)]","children":"Управление каталогом и контентом сайта."}],["$","div",null,{"className":"flex flex-wrap gap-4","children":["$","$L2",null,{"href":"/admin/catalog","className":"rounded-xl border bg-[color:var(--card)] px-5 py-4 font-medium text-[color:var(--fg)] transition hover:opacity-90","style":{"borderColor":"var(--border)"},"children":"Каталог"}]}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null

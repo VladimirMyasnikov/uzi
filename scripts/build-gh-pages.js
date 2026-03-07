@@ -3,7 +3,7 @@
  * Сборка статического сайта для GitHub Pages.
  * 1) Копирует изображения каталога в public/uzi/images/
  * 2) Собирает Next.js с output: export (GH_PAGES=1)
- * 3) Копирует out/uzi/* в docs/ (корень репо)
+ * 3) Копирует out/* в docs/ (корень репо)
  *
  * Запуск: node scripts/build-gh-pages.js (из корня репо)
  * После выполнения: закоммитьте папку docs/ и запушьте. В настройках репо
@@ -17,7 +17,7 @@ const ROOT = path.resolve(__dirname, "..");
 const ECHO_SITE = path.join(ROOT, "echo-site");
 const CATALOG_DATA = path.join(ECHO_SITE, "catalog-data");
 const PUBLIC_IMAGES = path.join(ECHO_SITE, "public", "uzi", "images");
-const OUT_UZI = path.join(ECHO_SITE, "out", "uzi");
+const OUT = path.join(ECHO_SITE, "out");
 const DOCS = path.join(ROOT, "docs");
 const APP = path.join(ECHO_SITE, "src", "app");
 const API_BACKUP = path.join(ROOT, ".gh-pages-api-backup");
@@ -155,18 +155,18 @@ function runBuild() {
 }
 
 function copyOutToDocs() {
-  console.log("4/5 Копирование out/uzi/* в docs/...");
-  if (!fs.existsSync(OUT_UZI)) {
-    console.error("Папка out/uzi не найдена. Сборка могла завершиться с ошибкой.");
+  console.log("4/5 Копирование out/* в docs/...");
+  if (!fs.existsSync(OUT)) {
+    console.error("Папка out не найдена. Сборка могла завершиться с ошибкой.");
     process.exit(1);
   }
   if (fs.existsSync(DOCS)) {
     fs.rmSync(DOCS, { recursive: true });
   }
   fs.mkdirSync(DOCS, { recursive: true });
-  const entries = fs.readdirSync(OUT_UZI, { withFileTypes: true });
+  const entries = fs.readdirSync(OUT, { withFileTypes: true });
   for (const e of entries) {
-    const src = path.join(OUT_UZI, e.name);
+    const src = path.join(OUT, e.name);
     const dest = path.join(DOCS, e.name);
     if (e.isDirectory()) {
       fs.cpSync(src, dest, { recursive: true });
