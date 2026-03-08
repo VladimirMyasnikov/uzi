@@ -9,6 +9,7 @@
     "husky": "^9.1.7"
   },
   "scripts": {
+    "dev": "npm run dev --prefix echo-site",
     "prepush": "node scripts/pre-push.js",
     "prepare": "husky"
   }
