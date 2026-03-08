@@ -19,8 +19,8 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--fg);
-  --font-sans: var(--font-sans-custom);
-  --font-mono: var(--font-heading-custom);
+  --font-sans: var(--font-sans-custom, system-ui);
+  --font-mono: var(--font-heading-custom, system-ui);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -43,12 +43,12 @@
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono), system-ui, -apple-system, sans-serif;
 }
 
 .page-surface {

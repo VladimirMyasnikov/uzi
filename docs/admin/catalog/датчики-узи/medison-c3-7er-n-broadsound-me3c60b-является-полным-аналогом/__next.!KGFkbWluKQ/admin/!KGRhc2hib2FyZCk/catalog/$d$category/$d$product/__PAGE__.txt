@@ -2,6 +2,6 @@
 2:I[87471,["/uzi/_next/static/chunks/2c9a26300299d327.js","/uzi/_next/static/chunks/001c86a84efb9fc6.js"],"default"]
 4:I[48729,["/uzi/_next/static/chunks/9fb88f3d60fb7f92.js","/uzi/_next/static/chunks/2053e045db148126.js"],"OutletBoundary"]
 5:"$Sreact.suspense"
-0:{"buildId":"IPGfQrZ_N51vns4StovT3","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3"}],[["$","script","script-0",{"src":"/uzi/_next/static/chunks/001c86a84efb9fc6.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"Jy-8WSL5c7Y1JrJ-in34U","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3"}],[["$","script","script-0",{"src":"/uzi/_next/static/chunks/001c86a84efb9fc6.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
 3:{"category":"%D0%B4%D0%B0%D1%82%D1%87%D0%B8%D0%BA%D0%B8-%D1%83%D0%B7%D0%B8","product":"medison-c3-7er-n-broadsound-me3c60b-%D1%8F%D0%B2%D0%BB%D1%8F%D0%B5%D1%82%D1%81%D1%8F-%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%BC-%D0%B0%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%BC"}
 6:null
