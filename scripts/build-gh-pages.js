@@ -174,7 +174,9 @@ function copyOutToDocs() {
       fs.copyFileSync(src, dest);
     }
   }
-  console.log("   Готово: docs/index.html и др.");
+  // GitHub Pages по умолчанию использует Jekyll и игнорирует папки _*; без .nojekyll не отдаются _next, стили и скрипты
+  fs.writeFileSync(path.join(DOCS, ".nojekyll"), "", "utf8");
+  console.log("   Готово: docs/index.html, .nojekyll и др.");
 }
 
 function main() {
