@@ -8,7 +8,7 @@ export default async function ContactsPage() {
         <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Контакты</p>
         <h1 className="text-3xl font-semibold text-slate-900">Свяжитесь с нами</h1>
         <p className="text-slate-600">
-          Офис, склад и сервисный центр в Москве. Пример контента — временный, позже заменим на актуальные данные.
+          Офис, шоурум и сервисный центр: Москва, пр. Вернадского, 29
         </p>
       </div>
 

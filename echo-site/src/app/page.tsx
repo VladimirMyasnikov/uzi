@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { newsList as news } from "@/config/data";
 import { getCatalogCategories } from "@/lib/catalog-loader";
-import {
-  getSiteConfig,
-  getServicesList,
-  getSpecialsList,
-  getFaqList,
-} from "@/lib/content-loader";
+import { getSiteConfig, getServicesList, getFaqList } from "@/lib/content-loader";
 
 const stats = [
   { label: "Лет в сервисе", value: "15+" },
@@ -16,11 +11,10 @@ const stats = [
 ];
 
 export default async function Home() {
-  const [catalog, siteConfig, services, specials, faq] = await Promise.all([
+  const [catalog, siteConfig, services, faq] = await Promise.all([
     getCatalogCategories(),
     getSiteConfig(),
     getServicesList(),
-    getSpecialsList(),
     getFaqList(),
   ]);
   const faqPreview = faq.slice(0, 3);
@@ -222,44 +216,6 @@ export default async function Home() {
                     {step}
                   </span>
                 ))}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section id="specials" className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--muted)]">Акции</p>
-            <h2 className="text-2xl font-semibold text-[color:var(--fg)]">Специальные предложения</h2>
-          </div>
-          <Link
-            href="/specials"
-            className="hidden rounded-full border px-4 py-2 text-sm font-semibold text-[color:var(--fg)] transition hover:-translate-y-0.5 sm:inline-flex"
-            style={{ borderColor: "var(--border)" }}
-          >
-            Все акции
-          </Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {specials.map((item) => (
-            <Link
-              key={item.title}
-              href="/specials"
-              className="card-panel block rounded-2xl p-5 transition hover:-translate-y-1"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="space-y-2">
-                  <span className="inline-flex items-center rounded-full bg-[color:var(--accent)]/15 px-3 py-1 text-xs font-semibold text-[color:var(--accent)]">
-                    {item.badge}
-                  </span>
-                  <div className="text-lg font-semibold text-[color:var(--fg)]">{item.title}</div>
-                  <div className="text-sm text-[color:var(--muted)]">Выгодные условия, уточним по запросу.</div>
-                </div>
-                <div className="text-sm font-semibold text-[color:var(--fg)] hover:text-[color:var(--muted)]">
-                  →
-                </div>
               </div>
             </Link>
           ))}

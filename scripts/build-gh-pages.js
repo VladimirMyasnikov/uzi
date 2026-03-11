@@ -138,6 +138,18 @@ function runBuild() {
       }
     }
   }
+  // Иногда в .next/dev/types/validator.ts при билде ссылаются на ./routes.js,
+  // который отсутствует. Создаем заглушку, чтобы TypeScript не падал.
+  const devTypesDir = path.join(nextDir, "dev", "types");
+  mkdirp(devTypesDir);
+  const routesStub = path.join(devTypesDir, "routes.js");
+  if (!fs.existsSync(routesStub)) {
+    fs.writeFileSync(
+      routesStub,
+      "export const appRoutes = [];\nexport const layoutRoutes = [];\nexport const pages = {};\n",
+      "utf8"
+    );
+  }
   console.log("3/5 Сборка Next.js (output: export)...");
   try {
     execSync("npm run build", {
@@ -177,6 +189,18 @@ function copyOutToDocs() {
   // GitHub Pages по умолчанию использует Jekyll и игнорирует папки _*; без .nojekyll не отдаются _next, стили и скрипты
   fs.writeFileSync(path.join(DOCS, ".nojekyll"), "", "utf8");
   console.log("   Готово: docs/index.html, .nojekyll и др.");
+
+  // Админка предназначена только для локальной работы, на GitHub Pages она не нужна
+  const adminDir = path.join(DOCS, "admin");
+  if (fs.existsSync(adminDir)) {
+    fs.rmSync(adminDir, { recursive: true });
+  }
+  for (const name of ["admin.html", "admin.txt"]) {
+    const p = path.join(DOCS, name);
+    if (fs.existsSync(p)) {
+      fs.rmSync(p, { force: true });
+    }
+  }
 }
 
 function main() {
